@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Board | Digital Notice Board</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Campus Board home">
+      <span class="brand-icon">CB</span>
+      <span><strong>Campus Board</strong><small>Digital Notice Board</small></span>
+    </a>
+    <button id="adminToggle" class="btn btn-outline" type="button">Admin mode</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">YOUR CAMPUS, IN THE LOOP</p>
+        <h1>Campus notices,<br><span>all in one place.</span></h1>
+        <p class="hero-copy">Find the latest announcements, exam updates, events, and important student information.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="paper paper-back"></div>
+        <div class="paper paper-front"><span class="paper-line long"></span><span class="paper-line"></span><span class="paper-line short"></span><span class="paper-dot"></span></div>
+        <span class="art-star star-one">✦</span><span class="art-star star-two">✧</span>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Notice summary">
+      <div class="stat-card"><span class="stat-icon">▤</span><div><strong id="totalCount">0</strong><small>Total notices</small></div></div>
+      <div class="stat-card"><span class="stat-icon">◷</span><div><strong id="recentCount">0</strong><small>Added this week</small></div></div>
+      <div class="stat-card"><span class="stat-icon">⚑</span><div><strong id="pinnedCount">0</strong><small>Important notices</small></div></div>
+    </section>
+
+    <section class="notice-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">CAMPUS UPDATES</p><h2>Notice board</h2></div>
+        <span id="resultLabel" class="result-label">Showing notices</span>
+      </div>
+      <div class="filters">
+        <label class="searchbox"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search notices..." aria-label="Search notices"></label>
+        <select id="categoryFilter" aria-label="Filter by category">
+          <option value="All">All categories</option>
+          <option>Academic</option><option>Examination</option><option>Events</option><option>Placement</option><option>General</option>
+        </select>
+        <select id="sortFilter" aria-label="Sort notices">
+          <option value="newest">Newest first</option><option value="oldest">Oldest first</option>
+        </select>
+      </div>
+
+      <div id="adminPanel" class="admin-panel hidden">
+        <div class="admin-heading"><div><h3>Manage notices</h3><p>Add a notice for students to see on this device.</p></div><span class="admin-label">ADMIN</span></div>
+        <form id="noticeForm">
+          <input type="hidden" id="noticeId">
+          <div class="form-grid">
+            <label>Notice title<input id="titleInput" required maxlength="100" placeholder="e.g. Internal exam schedule"></label>
+            <label>Category<select id="categoryInput" required><option>Academic</option><option>Examination</option><option>Events</option><option>Placement</option><option>General</option></select></label>
+            <label class="full">Description<textarea id="descriptionInput" required rows="3" maxlength="1000" placeholder="Write the important details here..."></textarea></label>
+            <label>Notice date<input id="dateInput" type="date" required></label>
+            <label>Attachment link (optional)<input id="linkInput" type="url" placeholder="https://example.com/notice.pdf"></label>
+          </div>
+          <label class="checkbox-label"><input id="pinnedInput" type="checkbox"> Mark as important</label>
+          <div class="form-actions"><button class="btn btn-primary" id="saveButton" type="submit">Publish notice</button><button class="btn btn-quiet hidden" id="cancelEdit" type="button">Cancel edit</button></div>
+        </form>
+        <p class="demo-warning">Demo note: this version saves notices in this browser only. It does not have secure user accounts or a shared database.</p>
+      </div>
+
+      <div id="noticeGrid" class="notice-grid"></div>
+      <div id="emptyState" class="empty-state hidden"><div class="empty-icon">⌕</div><h3>No notices found</h3><p>Try another search or category.</p><button id="clearFilters" class="btn btn-outline" type="button">Clear filters</button></div>
+    </section>
+  </main>
+
+  <footer><span class="footer-mark">CB</span><span>Campus Board <small>· Made for a better campus experience</small></span><span id="year"></span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
